@@ -7,8 +7,6 @@ on:
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
-  PARSE_FROM_SLICE_PANIC_MAYHEMFILE: parse_from_slice_panic.mayhemfile
-  PARSE_FROM_SLICE_TOTAL_MAYHEMFILE: parse_from_slice_total.mayhemfile
 
 jobs:
   build:
@@ -53,7 +51,7 @@ jobs:
         with:
           mayhem-token: ${{ secrets.MAYHEM_TOKEN }}
           args: --image ${{ steps.meta.outputs.tags }}
-                --file mayhem/${{ env.PARSE_FROM_SLICE_PANIC_MAYHEMFILE }}
+                --file mayhem/parse_from_slice_panic.mayhemfile
           sarif-output: sarif
 
       - name: Start analysis for parse_from_slice_total
@@ -61,7 +59,7 @@ jobs:
         with:
           mayhem-token: ${{ secrets.MAYHEM_TOKEN }}
           args: --image ${{ steps.meta.outputs.tags }}
-                --file mayhem/${{ env.PARSE_FROM_SLICE_TOTAL_MAYHEMFILE }}
+                --file mayhem/parse_from_slice_total.mayhemfile
           sarif-output: sarif
 
       - name: Upload SARIF file(s)
