@@ -1,6 +1,6 @@
 FROM fuzzers/cargo-fuzz:0.10.0
 
-ADD . /tokei
+ADD ../.. /tokei
 WORKDIR /tokei
 RUN rustup toolchain install nightly
 WORKDIR /tokei/fuzz
