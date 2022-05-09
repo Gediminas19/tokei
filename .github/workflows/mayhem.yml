@@ -42,7 +42,8 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
         with:
-          context: fuzz/mayhem
+          context: .
+          file: mayhem/Dockerfile
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
@@ -52,7 +53,7 @@ jobs:
         with:
           mayhem-token: ${{ secrets.MAYHEM_TOKEN }}
           args: --image ${{ steps.meta.outputs.tags }}
-                --file fuzz/mayhem/${{ env.PARSE_FROM_SLICE_PANIC_MAYHEMFILE }}
+                --file mayhem/${{ env.PARSE_FROM_SLICE_PANIC_MAYHEMFILE }}
           sarif-output: sarif
 
       - name: Start analysis for parse_from_slice_total
@@ -60,7 +61,7 @@ jobs:
         with:
           mayhem-token: ${{ secrets.MAYHEM_TOKEN }}
           args: --image ${{ steps.meta.outputs.tags }}
-                --file fuzz/mayhem/${{ env.PARSE_FROM_SLICE_TOTAL_MAYHEMFILE }}
+                --file mayhem/${{ env.PARSE_FROM_SLICE_TOTAL_MAYHEMFILE }}
           sarif-output: sarif
 
       - name: Upload SARIF file(s)
